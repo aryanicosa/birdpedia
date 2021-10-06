@@ -13,6 +13,7 @@ func newRouter() *mux.Router {
 	r := mux.NewRouter() 
 
 	r.HandleFunc("/hello", handler).Methods("GET")
+	
 
 	//declare static file directory
 	staticFileDirectory := http.Dir("./assets")
@@ -23,6 +24,10 @@ func newRouter() *mux.Router {
 	//create matcher for all routes starting with "/assets/" and give the handler and method
 	r.PathPrefix("/assets/").Handler(staticFileHandler).Methods("GET")
 
+	//handler for bird
+	r.HandleFunc("/bird", getBirdHandler).Methods("GET")
+	r.HandleFunc("/bird", createBirdHandler).Methods("POST")
+
 	return r
 }
 
@@ -31,7 +36,11 @@ func main() {
 
 	//http.HandleFunc("/", handler) // it's us basic http router
 
-	http.ListenAndServe(":8080", r)
+	err := http.ListenAndServe(":8080", r)
+
+	if err != nil {
+		panic((err.Error()))
+	}
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {

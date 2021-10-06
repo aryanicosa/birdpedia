@@ -9,7 +9,7 @@ import (
 
 func TestStaticFileServer(t *testing.T) {
 	r := newRouter()
-	mockServer := httptest.NewServer()
+	mockServer := httptest.NewServer(r)
 
 	//hit "GET /assets/" route to get the index.html
 	resp, err := http.Get(mockServer.URL + "/assets/")

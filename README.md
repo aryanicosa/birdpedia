@@ -18,3 +18,11 @@ touch main_test.go #create unit testing
 create static assets
 - mkdir assets
 - touch assets/index.html #add html file
+
+run the project
+- go build
+- ./birdpedia
+
+
+run the test
+go test ./...

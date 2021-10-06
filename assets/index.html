@@ -4,10 +4,53 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index</title>
+    <title>Bird encyclopedia</title>
 </head>
 <body>
-    <h1>Mantap</h1>
+    <h1>The Bird Encyclopedia</h1>
     
+    <table>
+        <tr>Species</tr>
+        <tr>Description</tr>
+        <td>Pigeon</td>
+        <td>Common in cities</td>
+    </table>
+    <br>
+
+    <form action="/bird" method="POST">
+        Species :
+        <input type="text" name="species" id="">
+        <br>
+        Description :
+        <input type="text" name="description" id="">
+        <br>
+        <input type="submit" value="submit">
+    </form>
+
 </body>
+
+<script>
+    birdTable = document.querySelector("table")
+    fetch("/bird")
+        .then(response => response.json())
+        .then(birdList => {
+            birdList.forEach(bird => {
+                //create row
+                row = document.createElement("tr")
+
+                //create table data
+                species = document.createElement("td")
+                species.innerHTML = bird.species
+                description = document.createElement('td')
+                description.innerHTML = bird.description
+
+                //add data element to row
+                row.appendChild(species)
+                row.appendChild(description)
+
+                //add row element to table
+                birdTable.appendChild(row)
+            })
+        })
+</script>
 </html>
