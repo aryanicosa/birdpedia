@@ -1,28 +1,37 @@
-install GO
+# Learning to build simple web app using GO
 
-create directory
-- mkdir <dir-name>
-cd <dir-name>
+**Step to build this project**
 
-go mod init <project-name>
+1. install GO
 
-touch main.go #create main.go file
+2. create directory
+- `mkdir <dir-name>`
+- `cd <dir-name>`
 
-go run main.go #run go project
+3. init the project 
+- `go mod init <project-name>`
 
-go get github.com/gorilla/mux #instal external libraries
+4. create main.go file
+- `touch main.go`
 
-touch main_test.go #create unit testing
-- By convension files with pattern *_test.go will treat as a test
+5. run main.go project
+- `go run main.go`
 
-create static assets
-- mkdir assets
-- touch assets/index.html #add html file
+6. instal external libraries
+- `go get github.com/gorilla/mux`
 
-run the project
-- go build
-- ./birdpedia
+7. create unit testing
+`touch main_test.go` 
+- By convension files with *_test.go pattern will treat as a test
+
+8. create static assets
+- `mkdir assets`
+- `touch assets/index.html #add html file`
+
+9. run the project
+- `go build`
+- `./birdpedia`
 
 
-run the test
-go test ./...
+10. run the test
+`go test ./...`
