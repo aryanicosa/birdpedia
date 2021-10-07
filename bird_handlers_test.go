@@ -11,10 +11,13 @@ import (
 )
 
 func TestGetBirdsHandler(t *testing.T) {
+	//init mock store
+	mockStore := InitMockStore()
 
-	birds = []Bird{
+	//define the data when GetBirds is called
+	mockStore.On("GetBirds").Return([]*Bird{
 		{"sparrow", "A small harmless bird"},
-	}
+	}, nil).Once()
 
 	req, err := http.NewRequest("GET", "", nil)
 
@@ -47,10 +50,9 @@ func TestGetBirdsHandler(t *testing.T) {
 	}
 }
 func TestCreateBirdsHandler(t *testing.T) {
+	mockStore := InitMockStore()
 
-	birds = []Bird{
-		{"sparrow", "A small harmless bird"},
-	}
+	mockStore.On("CreateBird", &Bird{"eagle", "A bird of prey"}).Return(nil)
 
 	form := newCreateBirdForm()
 	req, err := http.NewRequest("POST", "", bytes.NewBufferString(form.Encode()))
@@ -70,18 +72,8 @@ func TestCreateBirdsHandler(t *testing.T) {
 		t.Errorf("handler returned wrong status code: got %v want %v",
 			status, http.StatusOK)
 	}
+	mockStore.AssertExpectations(t)
 
-	expected := Bird{"eagle", "A bird of prey"}
-
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	actual := birds[1]
-
-	if actual != expected {
-		t.Errorf("handler returned unexpected body: got %v want %v", actual, expected)
-	}
 }
 
 func newCreateBirdForm() *url.Values {

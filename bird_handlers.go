@@ -14,8 +14,12 @@ type Bird struct {
 var birds []Bird
 
 func getBirdHandler(w http.ResponseWriter, r *http.Request) {
+	
+	birds, err := store.GetBirds()
+	
 	//convert bird to json
 	birdListBytes, err := json.Marshal(birds)
+
 
 	if err != nil {
 		fmt.Println(fmt.Errorf("error: %v", err))
@@ -45,7 +49,13 @@ func createBirdHandler(w http.ResponseWriter, r *http.Request) {
 	bird.Description = r.Form.Get("description")
 
 	//append data to existing list with a new entry
-	birds = append(birds, bird)
+	//birds = append(birds, bird)
+
+	err = store.CreateBird(&bird)
+	
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	//redirect user to the original html page
 	http.Redirect(w, r, "/assets/", http.StatusFound)

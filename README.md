@@ -35,3 +35,22 @@
 
 10. run the test
 `go test ./...`
+
+11. Adding database (ubuntu)
+    - create database `psql -d bird_encyclopedia`
+    - connect to database `\c`
+
+12. Create interface (let say Store)
+`touch store.go`
+add test `touch store_test.go`
+
+13. Create mock store to avoid test accessing database directly
+`touch store_mock.go`
+
+14. run this command to add new external library
+`go get github.com/stretchr/testify/mock`
+
+15. Modify `main.go`, then run this command to add new external library
+`go get github.com/lib/pq`
+
+Build and run the project
